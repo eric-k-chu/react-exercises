@@ -1,2 +1,3 @@
-# react-hooks
-a simple application to demonstrate react hooks
+# react-exercises
+
+a repository to test npm packages and react hooks
