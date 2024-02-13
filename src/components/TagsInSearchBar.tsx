@@ -8,6 +8,7 @@ function TagsInSearchBar() {
 
   function AddToSelected(e: KeyboardEvent<HTMLDivElement>): void {
     if (e.key === "Enter") {
+      if (input.length === 0) return;
       setSelected([...selected, input]);
       setInput("");
     } else if (e.key === "Backspace") {
