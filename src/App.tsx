@@ -1,7 +1,7 @@
-import TagsInSearchBar from "./components/TagsInSearchBar";
+import { InfiniteScroll } from "./components/InfiniteScroll";
 
 function App() {
-  return <TagsInSearchBar />;
+  return <InfiniteScroll />;
 }
 
 export default App;
