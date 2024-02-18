@@ -1,7 +1,7 @@
-import { InfiniteScroll } from "./components/InfiniteScroll";
+import { NativeInfiniteScroll } from "./components/NativeInfiniteScroll";
 
 function App() {
-  return <InfiniteScroll />;
+  return <NativeInfiniteScroll />;
 }
 
 export default App;
