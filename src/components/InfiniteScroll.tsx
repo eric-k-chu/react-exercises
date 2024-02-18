@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
 interface Pokemon {
@@ -69,25 +69,25 @@ export function InfiniteScroll() {
 
   return (
     <div className="mx-auto max-w-xl space-y-10 p-4">
-      {pokemons.results.map((n) => (
+      {pokemons.results.map((n, i) => (
         <div
           className="rounded-md border border-neutral-400 px-4 py-10 text-center capitalize"
           key={n.name}
+          ref={i === pokemons.results.length - 1 ? ref : null}
         >
           <h2>{n.name}</h2>
         </div>
       ))}
-      <Loader ref={ref} />
+      {isLoading && <LoadingSvg />}
     </div>
   );
 }
 
-const Loader = forwardRef<SVGSVGElement>((_, ref) => {
+function LoadingSvg() {
   return (
     <div role="status" className="flex w-full items-center justify-center">
       <svg
         aria-hidden="true"
-        ref={ref}
         className="h-8 w-8 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
         viewBox="0 0 100 101"
         fill="none"
@@ -105,4 +105,4 @@ const Loader = forwardRef<SVGSVGElement>((_, ref) => {
       <span className="sr-only">Loading...</span>
     </div>
   );
-});
+}
