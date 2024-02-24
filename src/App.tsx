@@ -1,7 +1,7 @@
-import { NativeInfiniteScroll } from "./components/NativeInfiniteScroll";
+import { ShadCnUi } from "./components/ShadCnUi";
 
 function App() {
-  return <NativeInfiniteScroll />;
+  return <ShadCnUi />;
 }
 
 export default App;
