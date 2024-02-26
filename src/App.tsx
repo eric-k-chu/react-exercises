@@ -1,7 +1,7 @@
-import { ShadCnUi } from "./components/ShadCnUi";
+import { ControllableList } from "./components/ui/ControllableList";
 
 function App() {
-  return <ShadCnUi />;
+  return <ControllableList />;
 }
 
 export default App;
