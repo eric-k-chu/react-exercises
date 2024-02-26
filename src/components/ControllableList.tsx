@@ -1,3 +1,4 @@
+import { useDebouncer } from "@/hooks/useDebouncer";
 import { ChangeEvent, FormEvent, KeyboardEvent, useState } from "react";
 
 const list = ["JavaScript", "C++", "C#", "Rust", "Go", "Python"];
@@ -6,6 +7,7 @@ export function ControllableList() {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState(0);
   const [lang, setLang] = useState("");
+  const [isLoading] = useDebouncer(() => setLang(query), [query]);
 
   const filteredList = list.filter((n) =>
     n.toLowerCase().includes(query.toLowerCase()),
@@ -38,7 +40,9 @@ export function ControllableList() {
 
   return (
     <div className="flex min-h-screen flex-col items-center bg-neutral-900 text-white">
-      <h1 className="p-20 text-6xl">{lang || "Choose a Language"}</h1>
+      <h1 className="p-20 text-6xl">
+        {isLoading ? "Loading..." : lang || "Choose a Language"}
+      </h1>
       <form
         className="relative mx-auto w-full max-w-xl"
         onSubmit={handleSearch}
