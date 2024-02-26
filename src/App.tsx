@@ -1,4 +1,4 @@
-import { ControllableList } from "./components/ui/ControllableList";
+import { ControllableList } from "./components/ControllableList";
 
 function App() {
   return <ControllableList />;
