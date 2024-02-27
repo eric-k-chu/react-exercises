@@ -1,7 +1,7 @@
-import { ControllableList } from "./components/ControllableList";
+import { PaginationAdvanced } from "./components/PaginationAdvanced";
 
 function App() {
-  return <ControllableList />;
+  return <PaginationAdvanced />;
 }
 
 export default App;
