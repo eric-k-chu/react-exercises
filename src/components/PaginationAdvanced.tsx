@@ -17,12 +17,12 @@ export function PaginationAdvanced() {
 
   function decrement(): void {
     if (page === 0) return;
-    setPage(page - 5);
+    setPage(page - 1);
   }
 
   function increment(): void {
     if (page === data.length - 1) return;
-    setPage(page + 5);
+    setPage(page + 1);
   }
 
   function goToPage(e: FormEvent<HTMLFormElement>): void {
