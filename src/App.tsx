@@ -1,7 +1,7 @@
-import { PaginationAdvanced } from "./components/PaginationAdvanced";
+import { Driver } from "./components/hangman/Driver";
 
 function App() {
-  return <PaginationAdvanced />;
+  return <Driver />;
 }
 
 export default App;
