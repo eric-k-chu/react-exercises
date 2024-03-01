@@ -1,4 +1,11 @@
-export function Drawing({ wrongGuesses }: { wrongGuesses: number }) {
+export function Drawing({
+  wrongGuesses,
+  word,
+}: {
+  wrongGuesses: number;
+  word: string;
+}) {
+  const words = word.split("");
   return (
     <section className="flex w-full basis-1/2 items-center justify-center p-2">
       <svg
@@ -51,6 +58,16 @@ export function Drawing({ wrongGuesses }: { wrongGuesses: number }) {
           className={`transition-colors duration-300 ease-in-out ${wrongGuesses >= 6 ? "fill-neutral-50" : "fill-transparent"}`}
         />
       </svg>
+      <div className="space-x-4">
+        {words.map((n, i) => (
+          <span
+            key={i}
+            className="text-xl uppercase underline underline-offset-8 md:text-3xl"
+          >
+            {n}
+          </span>
+        ))}
+      </div>
     </section>
   );
 }

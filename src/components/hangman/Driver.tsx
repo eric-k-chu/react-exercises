@@ -13,7 +13,7 @@ export function Driver() {
 
   return (
     <main className="flex h-screen flex-col items-center justify-center bg-neutral-900 text-white">
-      <Drawing wrongGuesses={wrongGuesses} />
+      <Drawing wrongGuesses={wrongGuesses} word={word} />
       <Letters
         word={word}
         onWrongGuess={() => setWrongGuesses((prev) => prev + 1)}

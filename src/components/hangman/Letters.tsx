@@ -11,32 +11,19 @@ export function Letters({
   const [letters, setLetters] = useState(chars);
 
   function checkLetter(char: HangmanLetter) {
-    if (word.toLowerCase().includes(char.letter.toLowerCase())) {
-      const newLetters = letters.map((n) => {
-        if (n.letter.toLowerCase() === char.letter.toLowerCase()) {
-          return {
-            ...n,
-            ok: true,
-          };
-        } else {
-          return n;
-        }
-      });
-      setLetters(newLetters);
-    } else {
-      const newLetters = letters.map((n) => {
-        if (n.letter.toLowerCase() === char.letter.toLowerCase()) {
-          return {
-            ...n,
-            ok: false,
-          };
-        } else {
-          return n;
-        }
-      });
-      setLetters(newLetters);
-      onWrongGuess();
-    }
+    const isOk = word.toLowerCase().includes(char.letter.toLowerCase());
+    const newLetters = letters.map((n) => {
+      if (n.letter.toLowerCase() === char.letter.toLowerCase()) {
+        return {
+          ...n,
+          ok: isOk,
+        };
+      } else {
+        return n;
+      }
+    });
+    setLetters(newLetters);
+    !isOk && onWrongGuess();
   }
 
   return (
