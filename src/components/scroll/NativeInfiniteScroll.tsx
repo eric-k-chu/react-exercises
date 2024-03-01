@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { usePokemons } from "../hooks/usePokemons";
+import { usePokemons } from "../../hooks/usePokemons";
 
 export function NativeInfiniteScroll() {
   const [offset, setOffset] = useState(0);
