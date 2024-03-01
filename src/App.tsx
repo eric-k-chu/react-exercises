@@ -1,7 +1,7 @@
-import { Driver } from "./components/hangman/Driver";
+import { ZodFormValidation } from "./components/zod/ZodFormValidation";
 
 function App() {
-  return <Driver />;
+  return <ZodFormValidation />;
 }
 
 export default App;
