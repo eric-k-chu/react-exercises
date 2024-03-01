@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { HangmanLetter, chars } from "./chars";
 
-export function Letters({ word }: { word: string }) {
+export function Letters({
+  word,
+  onWrongGuess,
+}: {
+  word: string;
+  onWrongGuess: () => void;
+}) {
   const [letters, setLetters] = useState(chars);
 
   function checkLetter(char: HangmanLetter) {
@@ -29,6 +35,7 @@ export function Letters({ word }: { word: string }) {
         }
       });
       setLetters(newLetters);
+      onWrongGuess();
     }
   }
 
