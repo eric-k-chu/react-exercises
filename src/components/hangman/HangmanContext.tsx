@@ -83,15 +83,15 @@ export function HangmanProvider({ children }: { children: ReactNode }) {
   );
 
   useEffect(() => {
-    function getKeyPress(e: KeyboardEvent) {
+    function handleKeyDown(e: KeyboardEvent) {
       if (!isLetter(e.key) || hasKeyBeenPressed(e.key, letters)) return;
 
       validateLetter(e.key);
     }
 
-    document.addEventListener("keydown", getKeyPress);
+    document.addEventListener("keydown", handleKeyDown);
 
-    return () => document.removeEventListener("keydown", getKeyPress);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [letters, validateLetter]);
 
   useEffect(() => {
