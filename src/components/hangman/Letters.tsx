@@ -2,30 +2,12 @@ import { HangmanLetter } from "./chars";
 import { useHangmanContext } from "./HangmanContext";
 
 export function Letters() {
-  const { word, letters, wrongGuesses, correctGuesses, gameState, reset } =
+  const { word, letters, wrongGuesses, gameState, reset, validate } =
     useHangmanContext();
 
   function checkLetter(char: HangmanLetter) {
-    if (gameState.get) return;
-
-    const isOk = word.get.toLowerCase().includes(char.letter.toLowerCase());
-    const newLetters = letters.get.map((n) => {
-      if (n.letter.toLowerCase() === char.letter.toLowerCase()) {
-        return {
-          ...n,
-          ok: isOk,
-        };
-      } else {
-        return n;
-      }
-    });
-    letters.set(newLetters);
-
-    if (isOk) {
-      correctGuesses.set([...correctGuesses.get, char.letter]);
-    } else {
-      wrongGuesses.set(wrongGuesses.get + 1);
-    }
+    if (char.ok !== undefined) return;
+    validate(char.letter);
   }
 
   if (gameState.get) {
@@ -71,9 +53,11 @@ export function Letters() {
         ))}
       </div>
       {import.meta.env.DEV && (
-        <div className="group mb-4 mt-auto rounded-md bg-neutral-800 p-4">
-          <p className="block group-hover:hidden">Hover to See Answer</p>
-          <p className="hidden cursor-default uppercase group-hover:block">
+        <div className="group mb-4 mt-auto w-48 rounded-md bg-neutral-800 p-4">
+          <p className="block text-center group-hover:hidden">
+            Hover to See Answer
+          </p>
+          <p className="hidden text-center uppercase group-hover:block">
             {word.get}
           </p>
         </div>
