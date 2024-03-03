@@ -12,7 +12,7 @@ import { HangmanLetter, chars } from "./chars";
 import { hasKeyBeenPressed, isLetter, isLetterInWord } from "./utils";
 
 interface GetterSetter<T> {
-  get: T;
+  get: () => T;
   set: (n: T) => void;
 }
 
@@ -28,23 +28,23 @@ interface HangmanContext {
 
 const HangmanContext = createContext<HangmanContext>({
   word: {
-    get: "",
+    get: () => "",
     set: () => undefined,
   },
   letters: {
-    get: [],
+    get: () => [],
     set: () => undefined,
   },
   wrongGuesses: {
-    get: 0,
+    get: () => 0,
     set: () => undefined,
   },
   correctGuesses: {
-    get: [],
+    get: () => [],
     set: () => undefined,
   },
   gameState: {
-    get: false,
+    get: () => false,
     set: () => undefined,
   },
   reset: () => undefined,
@@ -107,23 +107,23 @@ export function HangmanProvider({ children }: { children: ReactNode }) {
     <HangmanContext.Provider
       value={{
         word: {
-          get: word,
+          get: () => word,
           set: setWord,
         },
         letters: {
-          get: letters,
+          get: () => letters,
           set: setLetters,
         },
         wrongGuesses: {
-          get: wrongGuesses,
+          get: () => wrongGuesses,
           set: setWrongGuesses,
         },
         correctGuesses: {
-          get: correctGuesses,
+          get: () => correctGuesses,
           set: setCorrectGuesses,
         },
         gameState: {
-          get: isFinished,
+          get: () => isFinished,
           set: setIsFinished,
         },
         reset: () => {
