@@ -14,3 +14,7 @@ export function isLetterInWord(letter: string, word: string): boolean {
 export function isLetter(char: string): boolean {
   return /^[a-zA-Z]$/.test(char);
 }
+
+export function isEveryGuessInWord(guesses: string[], word: string): boolean {
+  return word.split("").every((n) => guesses.includes(n));
+}

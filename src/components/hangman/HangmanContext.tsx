@@ -9,7 +9,12 @@ import {
   useState,
 } from "react";
 import { HangmanLetter, chars } from "./chars";
-import { hasKeyBeenPressed, isLetter, isLetterInWord } from "./utils";
+import {
+  hasKeyBeenPressed,
+  isEveryGuessInWord,
+  isLetter,
+  isLetterInWord,
+} from "./utils";
 
 interface GetterSetter<T> {
   get: () => T;
@@ -95,12 +100,11 @@ export function HangmanProvider({ children }: { children: ReactNode }) {
   }, [letters, validateLetter]);
 
   useEffect(() => {
-    if (word.split("").every((n) => correctGuesses.includes(n)))
-      setIsFinished(true);
+    if (isEveryGuessInWord(correctGuesses, word)) setIsFinished(true);
   }, [word, correctGuesses]);
 
   useEffect(() => {
-    if (wrongGuesses === 6) setIsFinished(true);
+    if (wrongGuesses === +import.meta.env.VITE_MAX_GUESSES) setIsFinished(true);
   }, [wrongGuesses]);
 
   return (
