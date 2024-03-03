@@ -5,12 +5,12 @@ import { z } from "zod";
 export function ZodFormValidation() {
   const [errors, setErrors] = useState<string[]>([]);
 
-  function submitForm(e: FormEvent<HTMLFormElement>) {
+  async function submitForm(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
     try {
-      schema.parse({
+      await schema.parseAsync({
         username: formData.get("username"),
         password: formData.get("password"),
       } as LoginForm);
