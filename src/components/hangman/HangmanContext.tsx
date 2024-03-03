@@ -10,16 +10,13 @@ import {
 } from "react";
 import { HangmanLetter, chars } from "./chars";
 import {
+  GetterSetter,
+  createGetSet,
   hasKeyBeenPressed,
   isEveryGuessInWord,
   isLetter,
   isLetterInWord,
 } from "./utils";
-
-interface GetterSetter<T> {
-  get: () => T;
-  set: (n: T) => void;
-}
 
 interface HangmanContext {
   word: GetterSetter<string>;
@@ -110,26 +107,11 @@ export function HangmanProvider({ children }: { children: ReactNode }) {
   return (
     <HangmanContext.Provider
       value={{
-        word: {
-          get: () => word,
-          set: setWord,
-        },
-        letters: {
-          get: () => letters,
-          set: setLetters,
-        },
-        wrongGuesses: {
-          get: () => wrongGuesses,
-          set: setWrongGuesses,
-        },
-        correctGuesses: {
-          get: () => correctGuesses,
-          set: setCorrectGuesses,
-        },
-        gameState: {
-          get: () => isFinished,
-          set: setIsFinished,
-        },
+        word: createGetSet(word, setWord),
+        letters: createGetSet(letters, setLetters),
+        wrongGuesses: createGetSet(wrongGuesses, setWrongGuesses),
+        correctGuesses: createGetSet(correctGuesses, setCorrectGuesses),
+        gameState: createGetSet(isFinished, setIsFinished),
         reset: () => {
           setWord(generate({ minLength: 5, maxLength: 10 }) as string);
           setCorrectGuesses([]);
