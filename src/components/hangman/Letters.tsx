@@ -51,7 +51,7 @@ export function Letters() {
       <div className="space-x-4">
         {letters.get.slice(0, letters.get.length / 2).map((n) => (
           <button
-            className={`px-4 py-2 capitalize ring-2 transition-colors duration-300 ease-in-out ${n.ok === undefined ? "ring-neutral-50 hover:text-sky-400 hover:ring-sky-400" : n.ok ? "pointer-events-none cursor-default text-neutral-600 ring-neutral-600" : "pointer-events-none cursor-default text-neutral-600 line-through ring-neutral-600"}`}
+            className={`px-4 py-2 capitalize ring-2 transition-colors duration-300 ease-in-out ${n.ok === undefined ? "ring-neutral-50 hover:text-sky-400 hover:ring-sky-400" : n.ok ? "pointer-events-none cursor-default text-green-800 ring-green-800" : "pointer-events-none cursor-default text-red-800 line-through ring-red-800"}`}
             key={n.letter}
             onClick={() => checkLetter(n)}
           >
@@ -62,7 +62,7 @@ export function Letters() {
       <div className="space-x-4">
         {letters.get.slice(letters.get.length / 2).map((n) => (
           <button
-            className={`px-4 py-2 capitalize ring-2 transition-colors duration-300 ease-in-out ${n.ok === undefined ? "ring-neutral-50 hover:text-sky-400 hover:ring-sky-400" : n.ok ? "pointer-events-none cursor-default text-neutral-600 ring-neutral-600" : "pointer-events-none cursor-default text-neutral-600 line-through ring-neutral-600"}`}
+            className={`px-4 py-2 capitalize ring-2 transition-colors duration-300 ease-in-out ${n.ok === undefined ? "ring-neutral-50 hover:text-sky-400 hover:ring-sky-400" : n.ok ? "pointer-events-none cursor-default text-green-800 ring-green-800" : "pointer-events-none cursor-default text-red-800 line-through ring-red-800"}`}
             key={n.letter}
             onClick={() => checkLetter(n)}
           >
