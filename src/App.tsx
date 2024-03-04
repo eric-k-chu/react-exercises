@@ -1,4 +1,4 @@
-import { Driver } from "./components/hangman/Driver";
+import { Driver } from "./components/rerender/Driver";
 
 function App() {
   return <Driver />;
