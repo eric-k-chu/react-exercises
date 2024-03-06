@@ -18,9 +18,9 @@ function TagsInSearchBar() {
   }
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-4xl flex-col items-center justify-center gap-8">
+    <div className="flex min-h-screen flex-col items-center justify-center gap-8 bg-neutral-900 text-white">
       <div
-        className="flex w-full items-center gap-x-2 rounded-md bg-neutral-900 p-2"
+        className="mx-auto flex w-full max-w-7xl items-center gap-x-2 rounded-md bg-neutral-900 p-2"
         onKeyDown={(e) => AddToSelected(e)}
       >
         {selected.map((n) => (
@@ -37,8 +37,10 @@ function TagsInSearchBar() {
           placeholder="Add a tag"
         />
       </div>
-      <h2 className="w-full text-left font-semibold">Presets</h2>
-      <div className="flex flex-wrap items-center gap-4">
+      <h2 className="mx-auto w-full max-w-7xl text-left font-semibold">
+        Presets
+      </h2>
+      <div className="mx-auto flex w-full max-w-7xl flex-wrap items-center gap-4">
         {usernames.map((n) => (
           <button
             key={n}

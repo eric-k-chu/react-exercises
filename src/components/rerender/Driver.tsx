@@ -3,7 +3,7 @@ import { NoChildrenAsProp } from "./NoChildrenAsProp";
 
 export function Driver() {
   return (
-    <main className="flex min-h-screen items-center justify-center">
+    <main className="flex min-h-screen items-center justify-center bg-neutral-900 text-white">
       <a
         className="fixed top-5 text-blue-500 underline"
         href="https://kentcdodds.com/blog/optimize-react-re-renders"
