@@ -1,14 +1,22 @@
+import { links } from "@/lib/links";
 import { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 export function CentralNavBar() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  function handleLinkClick(path: string): void {
+    navigate(path);
+    setIsOpen(false);
+  }
+
   return (
     <>
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="fixed left-4 top-4"
+        className="fixed left-4 top-4 rounded-md bg-neutral-900"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -25,15 +33,26 @@ export function CentralNavBar() {
         </svg>
       </button>
       <div
-        className={`fixed flex h-screen w-full items-center transition-all duration-300 ease-in-out ${isOpen ? "bg-zinc-900/25 backdrop-blur-sm" : "pointer-events-none bg-transparent backdrop-blur-0"}`}
+        className={`fixed z-10 flex h-screen w-full items-center transition-all duration-300 ease-in-out ${isOpen ? "bg-zinc-900/25 backdrop-blur-sm" : "pointer-events-none bg-transparent backdrop-blur-0"}`}
       >
         <menu
-          className={`flex h-full w-[300px] flex-col gap-y-4 border-r border-r-neutral-800 bg-neutral-900 p-4 text-white transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-[300px]"}`}
+          className={`flex h-full w-[300px] flex-col border-r border-r-neutral-800 bg-neutral-900 p-4 text-white transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-[300px]"}`}
         >
-          <strong className="text-2xl">Menu</strong>
-          <Link to="/hangman">Hangman</Link>
-          <Link to="/hangman">Hangman</Link>
-          <Link to="/hangman">Hangman</Link>
+          <button
+            onClick={() => handleLinkClick("/")}
+            className="my-4 w-fit text-2xl font-semibold"
+          >
+            Menu
+          </button>
+          {links.map((n) => (
+            <button
+              key={n.name}
+              onClick={() => handleLinkClick("/" + n.path)}
+              className="rounded-md p-4 text-left transition-colors duration-300 ease-in-out hover:bg-neutral-800"
+            >
+              {n.name}
+            </button>
+          ))}
         </menu>
         <div className="h-full w-full" onClick={() => setIsOpen(false)} />
       </div>
