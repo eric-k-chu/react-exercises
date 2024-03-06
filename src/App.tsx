@@ -1,4 +1,4 @@
-import { Driver } from "./components/dropdown/Driver";
+import { Driver } from "./components/progress/Driver";
 
 function App() {
   return <Driver />;
