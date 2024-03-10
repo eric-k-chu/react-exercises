@@ -7,7 +7,7 @@ import { Driver as Dropdown } from "../components/dropdown/Driver";
 import { Driver as Hangman } from "../components/hangman/Driver";
 import { NativeInfiniteScroll } from "../components/scroll/NativeInfiniteScroll";
 import { ControllableList } from "@/components/list/ControllableList";
-import { Driver as Wordle } from "@/components/wordle/driver";
+import { Driver as Wordle } from "@/components/wordle/Driver";
 
 interface LinkInfo {
   path: string;

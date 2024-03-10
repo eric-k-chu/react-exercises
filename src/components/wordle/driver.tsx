@@ -1,7 +1,12 @@
+import { Interface } from "./Interface";
+import { WordleProvider } from "./WordleContext";
+
 export function Driver() {
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <h1>test</h1>
+    <div className="flex min-h-screen flex-col items-center bg-neutral-900 text-white">
+      <WordleProvider>
+        <Interface />
+      </WordleProvider>
     </div>
   );
 }
