@@ -7,6 +7,7 @@ import { Driver as Dropdown } from "../components/dropdown/Driver";
 import { Driver as Hangman } from "../components/hangman/Driver";
 import { NativeInfiniteScroll } from "../components/scroll/NativeInfiniteScroll";
 import { ControllableList } from "@/components/list/ControllableList";
+import { Driver as Wordle } from "@/components/wordle/driver";
 
 interface LinkInfo {
   path: string;
@@ -28,4 +29,5 @@ export const links: LinkInfo[] = [
   { path: "search-tags", name: "Tags in Searchbar", element: TagsInSearchBar },
   { path: "zod-form", name: "Forms with Zod", element: ZodFormValidation },
   { path: "list", name: "Controllable List", element: ControllableList },
+  { path: "wordle", name: "Wordle", element: Wordle },
 ];
