@@ -1,34 +1,68 @@
 import { isLetter } from "@/lib/utils";
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 interface WordleContext {
   wordle: string;
   grid: string[][];
-  buffer: string[];
   currentRow: number;
 }
 
 const WordleContext = createContext<WordleContext>({
   wordle: "",
   grid: [[]],
-  buffer: [],
   currentRow: 0,
 });
 
-const starter = Array.from({ length: 6 }).map(() => {
-  return Array.from({ length: 5 }).map(() => "");
-});
-
-const emptyBuf = Array.from({ length: 5 }).map(() => "");
+const starter = Array(6).fill(Array(5).fill(""));
 
 export function WordleProvider({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const [wordle] = useState("apple");
-  const [grid, setGrid] = useState(starter);
-  const [buffer, setBuffer] = useState<string[]>(emptyBuf);
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
+  const [grid, setGrid] = useState<string[][]>(starter);
+  const [currentRow, setCurrentRow] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const addLetter = useCallback(
+    (letter: string) => {
+      if (activeIndex === 5) return;
+      setGrid((prev) =>
+        prev.map((row, i) =>
+          row.map((char, j) => {
+            if (i === currentRow && j === activeIndex) {
+              return letter;
+            } else {
+              return char;
+            }
+          }),
+        ),
+      );
+      setActiveIndex((prev) => prev + 1);
+    },
+    [activeIndex, currentRow],
+  );
+
+  const deleteLetter = useCallback(() => {
+    if (activeIndex === 0) return;
+    setGrid((prev) =>
+      prev.map((row, i) =>
+        row.map((char, j) => {
+          if (i === currentRow && j === activeIndex - 1) {
+            return "";
+          } else {
+            return char;
+          }
+        }),
+      ),
+    );
+    setActiveIndex((prev) => prev - 1);
+  }, [activeIndex, currentRow]);
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -36,34 +70,32 @@ export function WordleProvider({
         return;
 
       if (e.key === "Enter") {
-        setGrid((prev) => prev.map((row, id) => (id === x ? buffer : row)));
-        setBuffer(emptyBuf);
-        setY(0);
-        if (x < 6) setX(x + 1);
-      } else if (e.key === "Backspace") {
-        if (buffer.every((n) => n === "")) return;
-        setBuffer((prev) => prev.map((n, i) => (i === y ? "" : n)));
-        if (y > 0) setY(y - 1);
-      } else {
-        if (buffer.every((n) => n !== "")) return;
+        console.log("Enter");
+        return;
+      }
 
-        setBuffer((prev) => prev.map((n, i) => (i === y ? e.key : n)));
-        if (y < 4) setY(y + 1);
+      if (e.key === "Backspace") {
+        deleteLetter();
+        return;
+      }
+
+      if (isLetter(e.key)) {
+        addLetter(e.key);
+        return;
       }
     }
 
     document.addEventListener("keydown", handleKeyDown);
 
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [grid, x, y, buffer]);
+  }, [addLetter, deleteLetter]);
 
   return (
     <WordleContext.Provider
       value={{
         wordle,
         grid,
-        buffer,
-        currentRow: x,
+        currentRow,
       }}
     >
       {children}
