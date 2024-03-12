@@ -11,12 +11,18 @@ interface WordleContext {
   wordle: string;
   grid: string[][];
   currentRow: number;
+  add: (ch: string) => void;
+  del: () => void;
+  guess: () => void;
 }
 
 const WordleContext = createContext<WordleContext>({
   wordle: "",
   grid: [[]],
   currentRow: 0,
+  add: () => undefined,
+  del: () => undefined,
+  guess: () => undefined,
 });
 
 const starter = Array(6).fill(Array(5).fill(""));
@@ -118,6 +124,9 @@ export function WordleProvider({
         wordle,
         grid,
         currentRow,
+        add: addLetter,
+        del: deleteLetter,
+        guess: addGuess,
       }}
     >
       {children}
