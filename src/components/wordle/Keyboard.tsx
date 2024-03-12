@@ -1,3 +1,4 @@
+import { LetterState } from "@/lib/utils";
 import { useWordleContext } from "./WordleContext";
 
 const top = "qwertyuiop".split("");
@@ -5,32 +6,22 @@ const mid = "asdfghjkl".split("");
 const bot = "zxcvbnm".split("");
 
 export function Keyboard() {
-  const { guess, del, add } = useWordleContext();
+  const { guess, del, add, guessedLetters } = useWordleContext();
 
   return (
     <div className="flex flex-col items-center gap-y-2">
       <div className="flex items-center gap-x-2">
         {top.map((n) => (
-          <button
-            key={n}
-            type="button"
-            onClick={() => add(n)}
-            className="flex h-16 w-12 items-center justify-center rounded-md bg-neutral-500 p-4 text-xl font-semibold uppercase"
-          >
+          <KeyBox state={guessedLetters[n]} add={() => add(n)}>
             {n}
-          </button>
+          </KeyBox>
         ))}
       </div>
       <div className="flex items-center gap-x-2">
         {mid.map((n) => (
-          <button
-            key={n}
-            type="button"
-            onClick={() => add(n)}
-            className="flex h-16 w-12 items-center justify-center rounded-md bg-neutral-500 p-4 text-xl font-semibold uppercase"
-          >
+          <KeyBox state={guessedLetters[n]} add={() => add(n)}>
             {n}
-          </button>
+          </KeyBox>
         ))}
       </div>
       <div className="flex items-center gap-x-2">
@@ -42,14 +33,9 @@ export function Keyboard() {
           Enter
         </button>
         {bot.map((n) => (
-          <button
-            key={n}
-            onClick={() => add(n)}
-            type="button"
-            className="flex h-16 w-12 items-center justify-center rounded-md bg-neutral-500 p-4 text-xl font-semibold uppercase"
-          >
+          <KeyBox state={guessedLetters[n]} add={() => add(n)}>
             {n}
-          </button>
+          </KeyBox>
         ))}
         <button
           type="button"
@@ -73,5 +59,59 @@ export function Keyboard() {
         </button>
       </div>
     </div>
+  );
+}
+
+type KeyBoxProp = {
+  state: LetterState;
+  add: () => void;
+  children: React.ReactNode;
+};
+
+function KeyBox({ state, add, children }: KeyBoxProp) {
+  if (state === "correct") {
+    return (
+      <button
+        onClick={add}
+        type="button"
+        className="flex h-16 w-12 items-center justify-center rounded-md bg-[#538D4E] p-4 text-xl font-semibold uppercase"
+      >
+        {children}
+      </button>
+    );
+  }
+
+  if (state === "misplaced") {
+    return (
+      <button
+        onClick={add}
+        type="button"
+        className="flex h-16 w-12 items-center justify-center rounded-md bg-[#B59F3B] p-4 text-xl font-semibold uppercase"
+      >
+        {children}
+      </button>
+    );
+  }
+
+  if (state === "wrong") {
+    return (
+      <button
+        onClick={add}
+        type="button"
+        className="flex h-16 w-12 items-center justify-center rounded-md bg-neutral-800 p-4 text-xl font-semibold uppercase"
+      >
+        {children}
+      </button>
+    );
+  }
+
+  return (
+    <button
+      onClick={add}
+      type="button"
+      className="flex h-16 w-12 items-center justify-center rounded-md bg-neutral-500 p-4 text-xl font-semibold uppercase"
+    >
+      {children}
+    </button>
   );
 }

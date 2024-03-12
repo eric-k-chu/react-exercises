@@ -41,7 +41,7 @@ function LetterBox({ wordle, letter, active }: LetterBoxProps) {
 
   if (state === "wrong") {
     return (
-      <div className="flex size-16 items-center justify-center bg-neutral-600 ring-2 ring-neutral-600">
+      <div className="flex size-16 items-center justify-center bg-neutral-800 ring-2 ring-neutral-800">
         <p className="text-4xl font-semibold uppercase">{letter.char}</p>
       </div>
     );

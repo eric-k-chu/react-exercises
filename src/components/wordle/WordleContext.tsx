@@ -1,4 +1,9 @@
-import { isValidKeyword, isValidWord } from "@/lib/utils";
+import {
+  LetterState,
+  getCharStateFromWordle,
+  isValidKeyword,
+  isValidWord,
+} from "@/lib/utils";
 import {
   createContext,
   useCallback,
@@ -15,6 +20,8 @@ Four States a letter can be in:
 - correct: bg-green-600, letter in correct place
 */
 
+type GuessedLetters = Record<string, LetterState>;
+
 interface WordleContext {
   wordle: string;
   grid: string[][];
@@ -22,6 +29,7 @@ interface WordleContext {
   add: (ch: string) => void;
   del: () => void;
   guess: () => void;
+  guessedLetters: GuessedLetters;
 }
 
 const WordleContext = createContext<WordleContext>({
@@ -31,6 +39,7 @@ const WordleContext = createContext<WordleContext>({
   add: () => undefined,
   del: () => undefined,
   guess: () => undefined,
+  guessedLetters: {},
 });
 
 const starter = Array(6).fill(Array(5).fill(""));
@@ -43,6 +52,7 @@ export function WordleProvider({
   const [currentRow, setCurrentRow] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isGameDone, setIsGameDone] = useState(false);
+  const [guessedLetters, setGuessedLetters] = useState<GuessedLetters>({});
 
   const addLetter = useCallback(
     (letter: string) => {
@@ -82,11 +92,25 @@ export function WordleProvider({
   const addGuess = useCallback(() => {
     if (activeIndex !== 5) return;
 
-    const guess = grid.filter((_, i) => i === currentRow)[0].join("");
+    const [guessedChars] = grid.filter((_, i) => i === currentRow);
+    const guessedWord = guessedChars.join("");
 
-    if (!isValidWord(guess)) return;
+    if (!isValidWord(guessedWord)) return;
 
-    if (!wordle.includes(guess)) {
+    const newGuesses = { ...guessedLetters };
+
+    guessedChars.forEach((char, i) => {
+      newGuesses[char] = getCharStateFromWordle(
+        false,
+        char,
+        i,
+        wordle.split(""),
+      );
+    });
+
+    setGuessedLetters(newGuesses);
+
+    if (!wordle.includes(guessedWord)) {
       if (currentRow < 5) {
         setCurrentRow((prev) => prev + 1);
         setActiveIndex(0);
@@ -124,7 +148,7 @@ export function WordleProvider({
     document.addEventListener("keydown", handleKeyDown);
 
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [addLetter, deleteLetter, addGuess, isGameDone]);
+  }, [addLetter, deleteLetter, addGuess, isGameDone, guessedLetters]);
 
   return (
     <WordleContext.Provider
@@ -135,6 +159,7 @@ export function WordleProvider({
         add: addLetter,
         del: deleteLetter,
         guess: addGuess,
+        guessedLetters,
       }}
     >
       {children}

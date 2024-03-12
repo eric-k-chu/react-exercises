@@ -15,12 +15,14 @@ export function isValidWord(word: string): boolean {
   return validWords.includes(word);
 }
 
+export type LetterState = "default" | "wrong" | "misplaced" | "correct";
+
 export function getCharStateFromWordle(
   active: boolean,
   char: string,
   charIndex: number,
   wordle: string[],
-) {
+): LetterState {
   if (active || char.length === 0) return "default";
 
   if (!wordle.includes(char)) return "wrong";
