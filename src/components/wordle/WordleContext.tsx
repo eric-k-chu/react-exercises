@@ -7,6 +7,14 @@ import {
   useState,
 } from "react";
 
+/*
+Four States a letter can be in:
+- default: bg-transparent, typing in letter
+- wrong: bg-neutral-600, letter dne in wordle
+- misplaced: bg-yellow-600, letter exists in wordle but misplaced
+- correct: bg-green-600, letter in correct place
+*/
+
 interface WordleContext {
   wordle: string;
   grid: string[][];

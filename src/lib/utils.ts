@@ -6,14 +6,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function isCharInWordle(
-  wordle: string,
-  char: string,
-): boolean | undefined {
-  if (char.length === 0) return undefined;
-  return wordle.toLowerCase().includes(char.toLowerCase());
-}
-
 export function isValidKeyword(key: string): boolean {
   if (key === "Enter" || key === "Backspace") return true;
   return /^[a-zA-Z]$/.test(key);
@@ -21,4 +13,21 @@ export function isValidKeyword(key: string): boolean {
 
 export function isValidWord(word: string): boolean {
   return validWords.includes(word);
+}
+
+export function getCharStateFromWordle(
+  active: boolean,
+  char: string,
+  charIndex: number,
+  wordle: string[],
+) {
+  if (active || char.length === 0) return "default";
+
+  if (!wordle.includes(char)) return "wrong";
+
+  const index = wordle.findIndex((n) => n === char);
+
+  if (index !== charIndex) return "misplaced";
+
+  return "correct";
 }
