@@ -97,8 +97,19 @@ export function WordleProvider({
 
     if (!isValidWord(guessedWord)) return;
 
+    if (!wordle.includes(guessedWord)) {
+      if (currentRow < 5) {
+        setActiveIndex(0);
+      } else {
+        alert(`Failed! The wordle is ${wordle}`);
+        setIsGameDone(true);
+      }
+    } else {
+      alert("You correctly guessed the word!");
+      setIsGameDone(true);
+    }
+    setCurrentRow((prev) => prev + 1);
     const newGuesses = { ...guessedLetters };
-
     guessedChars.forEach((char, i) => {
       newGuesses[char] = getCharStateFromWordle(
         false,
@@ -107,22 +118,7 @@ export function WordleProvider({
         wordle.split(""),
       );
     });
-
     setGuessedLetters(newGuesses);
-
-    if (!wordle.includes(guessedWord)) {
-      if (currentRow < 5) {
-        setCurrentRow((prev) => prev + 1);
-        setActiveIndex(0);
-      } else {
-        alert(`Failed! The wordle is ${wordle}`);
-        setIsGameDone(true);
-      }
-      return;
-    }
-
-    alert("You correctly guessed the word!");
-    setIsGameDone(true);
   }, [activeIndex, currentRow, grid, wordle]);
 
   useEffect(() => {
