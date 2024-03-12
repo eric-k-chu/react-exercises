@@ -27,6 +27,7 @@ export function getCharStateFromWordle(
 
   if (!wordle.includes(char)) return "wrong";
 
+  // TODO: If the same letter is in multiple place, find index will only work for the first letter
   const index = wordle.findIndex((n) => n === char);
 
   if (index !== charIndex) return "misplaced";
