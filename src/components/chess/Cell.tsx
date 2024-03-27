@@ -1,28 +1,24 @@
-import { Piece } from "@/lib/chess";
-
 export function Cell({
   isEven,
-  piece,
-  selected,
+  isEmpty,
+  isSelected,
   onClick,
+  children,
 }: {
   isEven: boolean;
-  piece?: Piece;
-  selected: Piece | undefined;
+  isEmpty: boolean;
+  isSelected: boolean;
   onClick: () => void;
+  children: React.ReactNode;
 }) {
-  const color = getCellColor(piece === undefined, selected === piece, isEven);
+  const color = getCellColor(isEmpty, isSelected, isEven);
 
   return (
     <div
-      className={`flex items-center justify-center ${color} ${getCursorType(piece === undefined, selected === piece)}`}
+      className={`flex items-center justify-center ${color} ${getCursorType(isEmpty, isSelected)}`}
       onMouseDown={onClick}
     >
-      <h1
-        className={`text-sm font-semibold [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)] ${piece?.color === "white" ? "text-white" : "text-black"}`}
-      >
-        {piece ? piece.type : " "}
-      </h1>
+      {children}
     </div>
   );
 }

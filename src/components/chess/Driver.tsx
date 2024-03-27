@@ -31,10 +31,16 @@ export function Driver() {
             return (
               <Cell
                 isEven={col.isEven}
-                selected={selected}
-                piece={piece}
+                isSelected={selected === piece}
+                isEmpty={piece === undefined}
                 onClick={() => handleCellClick(piece)}
-              />
+              >
+                <h1
+                  className={`text-sm font-semibold [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)] ${piece?.color === "white" ? "text-white" : "text-black"}`}
+                >
+                  {piece ? piece.type : " "}
+                </h1>
+              </Cell>
             );
           }),
         )}
