@@ -28,15 +28,13 @@ function getCellColor(
   isSelected: boolean,
   isEvenCell: boolean,
 ): string {
-  // Empty Cell or Piece is not selected
-  if (isEmptyCell || !isSelected) {
-    // Default colors
-    return isEvenCell ? "bg-[#B78662]" : "bg-[#ECD5B0]";
-  }
+  // Empty Cell, default colors
+  if (isEmptyCell) return isEvenCell ? "bg-[#B78662]" : "bg-[#ECD5B0]";
 
   // If piece is selected, show highlighted colors
   if (isSelected) return isEvenCell ? "bg-[#DBC24A]" : "bg-[#F5EA71]";
 
+  // if piece is not selected, default colors
   return isEvenCell ? "bg-[#B78662]" : "bg-[#ECD5B0]";
 }
 
