@@ -15,7 +15,6 @@ export type PieceType =
 
 export interface Piece extends Position {
   type: PieceType;
-  sprite: string;
   color: Color;
 }
 
@@ -39,7 +38,6 @@ export function generatePiece(
   return {
     type,
     color,
-    sprite: "",
     x,
     y,
   };

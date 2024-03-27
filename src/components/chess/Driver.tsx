@@ -1,6 +1,7 @@
 import { Piece, generateBoard } from "@/lib/chess";
 import { useState } from "react";
 import { Cell } from "./Cell";
+import { ChessSprite } from "./Pieces";
 
 export function Driver() {
   const [board] = useState(generateBoard());
@@ -28,6 +29,7 @@ export function Driver() {
             const piece = board.pieces.find(
               (p) => p.x === col.x && p.y === col.y,
             );
+
             return (
               <Cell
                 isEven={col.isEven}
@@ -35,11 +37,7 @@ export function Driver() {
                 isEmpty={piece === undefined}
                 onClick={() => handleCellClick(piece)}
               >
-                <h1
-                  className={`text-sm font-semibold [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)] ${piece?.color === "white" ? "text-white" : "text-black"}`}
-                >
-                  {piece ? piece.type : " "}
-                </h1>
+                <ChessSprite piece={piece} />
               </Cell>
             );
           }),
