@@ -13,4 +13,7 @@ export default class Ansi {
   public static warn(message: string): void {
     console.log(`${Ansi.m_Yellow}${message}${Ansi.m_Reset}`);
   }
+  public static log(...message: unknown[]): void {
+    console.log(...message);
+  }
 }
