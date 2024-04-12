@@ -28,3 +28,5 @@ Ansi.log(store.random());
 store.clear();
 
 Ansi.log(store.values());
+
+Ansi.log(store.keys());
